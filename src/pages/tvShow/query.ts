@@ -5,7 +5,7 @@ export const fetchTvShowDetails = async (tvShowID: string) => {
       {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDFhNDUyOGExMzVkZWIyZTgzOGZiYjJkYWI1OTQzNCIsInN1YiI6IjY1OWQ4MjY2ZDY1OTBiMDI1Y2IyMmY3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QQ9bD3RKkvUqa2G1byaIHifapgcU3WIYNcYzHihPftM",
+            `Bearer ${import.meta.env.VITE_APP_API_READ_ACCES_TOKEN}`
         },
       }
     );
