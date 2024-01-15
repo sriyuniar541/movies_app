@@ -4,7 +4,7 @@
 <!--   <img height="150" src="https://res.cloudinary.com/dxrsjyu6o/image/upload/v1675087793/recipe/bg2_tabsqa.png"  /> -->
 </p>
 <p align="center">
-  Built with React Js with Vite.
+  Built with React Js with Vite and TypeScript.
 </p>
 
 ## Table of Contents
