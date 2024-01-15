@@ -11,7 +11,7 @@ import { mutationLogin } from "./mutation";
 import { useNavigate } from "react-router-dom";
 
 export const Auth = () => {
-  const { data, mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["login"],
     mutationFn: mutationLogin,
   });
