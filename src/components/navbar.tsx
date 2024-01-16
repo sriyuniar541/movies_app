@@ -1,13 +1,21 @@
 import { Button, Menu } from "semantic-ui-react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("guest_session_id") != null;
 
   const logout = () => {
     localStorage.removeItem("guest_session_id");
-    return <Navigate to="/auth" />;
+    navigate("/auth");
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/auth");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <Menu fixed="top" size="huge">

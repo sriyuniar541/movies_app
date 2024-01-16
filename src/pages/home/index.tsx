@@ -3,7 +3,8 @@ import { Button } from "semantic-ui-react";
 import { ColumnDisplay } from "../home/column-display";
 import { fetchMovies, fetchTvShow } from "./query";
 import { useQuery } from "@tanstack/react-query";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export enum DisplayType {
   Movies = "movies",
@@ -11,6 +12,7 @@ export enum DisplayType {
 }
 
 export const Home = () => {
+  const navigate = useNavigate();
   const [displayType, setDisplayType] = useState<DisplayType>(
     DisplayType.Movies
   );
@@ -24,9 +26,13 @@ export const Home = () => {
     queryFn: fetchTvShow,
   });
 
-  if (localStorage.getItem("guest_session_id") === null) {
-    return <Navigate to="/auth" />;
-  }
+  const isLoggedIn = localStorage.getItem("guest_session_id") != null;
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/auth");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div style={{ marginTop: 50, height: "auto" }}>

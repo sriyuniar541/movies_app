@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Header, Menu, Segment } from "semantic-ui-react";
 import { DisplayType } from "../home";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRatedMovies, fetchRatedTvShow } from "./query";
 import { ColumnDisplay } from "../home/column-display";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Rated = () => {
+  const navigate = useNavigate();
   const [activeTabs, setActiveTabs] = useState<DisplayType>(DisplayType.Movies);
 
   const { data: ratedMovies, isLoading: isLoadingRatedMovies } = useQuery({
@@ -22,9 +23,13 @@ export const Rated = () => {
   const displayData =
     activeTabs === DisplayType.Movies ? ratedMovies : ratedTvShows;
 
-  if (localStorage.getItem("guest_session_id") === null) {
-    return <Navigate to="/auth" />;
-  }
+  const isLoggedIn = localStorage.getItem("guest_session_id") != null;
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/auth");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <Container style={{ marginTop: 30 }}>

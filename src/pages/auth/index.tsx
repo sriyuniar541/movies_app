@@ -9,6 +9,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { mutationLogin } from "./mutation";
 import { useNavigate } from "react-router-dom";
+import { FormEvent } from "react";
 
 export const Auth = () => {
   const { mutate } = useMutation({
@@ -18,9 +19,16 @@ export const Auth = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    await mutate();
-    navigate("/");
+  const handleLogin = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await mutate();
+
+      navigate("/");
+    } catch (error) {
+      console.error("Login gagal:", error);
+    }
   };
 
   return (
@@ -29,9 +37,9 @@ export const Auth = () => {
         <Header as="h2" color="violet" textAlign="center">
           Welcome Login by registering
         </Header>
-        <Form size="large">
+        <Form size="large" onSubmit={handleLogin}>
           <Segment stacked>
-            <Button color="violet" size="large" fluid onClick={handleLogin}>
+            <Button color="violet" size="large" fluid type="submit">
               Login
             </Button>
           </Segment>
